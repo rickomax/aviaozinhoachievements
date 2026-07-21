@@ -1,0 +1,56 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Repos\\spiked\u00E3o\\Windows\\SDL2TTF\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{96ECED0B-C29A-3D2C-AEA3-CF46CD89D0D8}|SDL2_ttf.vcxproj|C:\\Repos\\SDL_ttf\\SDL_ttf.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB6C5C1D-F3F4-36E4-A52B-4F1B7328652F}|glfont.vcxproj|C:\\Repos\\SDL_ttf\\glfont.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SDL_ttf.c",
+              "DocumentMoniker": "C:\\Repos\\SDL_ttf\\SDL_ttf.c",
+              "RelativeDocumentMoniker": "..\\..\\..\\SDL_ttf\\SDL_ttf.c",
+              "ToolTip": "C:\\Repos\\SDL_ttf\\SDL_ttf.c",
+              "RelativeToolTip": "..\\..\\..\\SDL_ttf\\SDL_ttf.c",
+              "ViewState": "AgIAAHgHAAAAAAAAAAAiwIEHAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-05-04T22:56:02.162Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "glfont.c",
+              "DocumentMoniker": "C:\\Repos\\SDL_ttf\\glfont.c",
+              "RelativeDocumentMoniker": "..\\..\\..\\SDL_ttf\\glfont.c",
+              "ToolTip": "C:\\Repos\\SDL_ttf\\glfont.c",
+              "RelativeToolTip": "..\\..\\..\\SDL_ttf\\glfont.c",
+              "ViewState": "AgIAAAsBAAAAAAAAAADgvxwBAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-05-04T22:55:56.979Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Repos\spikedão\Windows\SDL2TTF\CMakeFiles\2579c9c94d1b18580b2bc5ee4e3185e2\PACKAGE_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{BC42731E-4995-394A-A49C-BC63B7DB4D40}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

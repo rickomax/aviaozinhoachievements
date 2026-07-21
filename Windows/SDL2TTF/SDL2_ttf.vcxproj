@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{96ECED0B-C29A-3D2C-AEA3-CF46CD89D0D8}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>SDL2_ttf</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Repos\spikedão\Windows\SDL2TTF\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SDL2_ttf.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SDL2_ttfd</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Repos\spikedão\Windows\SDL2TTF\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SDL2_ttf.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SDL2_ttf</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Repos\spikedão\Windows\SDL2TTF\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">SDL2_ttf.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">SDL2_ttf</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Repos\spikedão\Windows\SDL2TTF\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">SDL2_ttf.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">SDL2_ttf</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Repos\SDL_ttf;C:\Repos\spikedão\Windows\SDL2TTF\external\freetype\include;C:\Repos\SDL_ttf\external\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Repos/spikedão/Windows/SDL2/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;BUILD_SDL;SDL_BUILD_MAJOR_VERSION=2;SDL_BUILD_MINOR_VERSION=25;SDL_BUILD_MICRO_VERSION=0;CMAKE_INTDIR="Debug";DLL_EXPORT</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;BUILD_SDL;SDL_BUILD_MAJOR_VERSION=2;SDL_BUILD_MINOR_VERSION=25;SDL_BUILD_MICRO_VERSION=0;CMAKE_INTDIR=\"Debug\";DLL_EXPORT</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Repos\SDL_ttf;C:\Repos\spikedão\Windows\SDL2TTF\external\freetype\include;C:\Repos\SDL_ttf\external\freetype\include;C:\Repos\spikedão\Windows\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Repos\SDL_ttf;C:\Repos\spikedão\Windows\SDL2TTF\external\freetype\include;C:\Repos\SDL_ttf\external\freetype\include;C:\Repos\spikedão\Windows\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>external\freetype\Debug\freetyped.lib;C:\Repos\spikedão\Windows\SDL2New\Debug\SDL2d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Repos/spikedão/Windows/SDL2TTF/Debug/SDL2_ttfd.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Repos/spikedão/Windows/SDL2TTF/Debug/SDL2_ttfd.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Repos\SDL_ttf;C:\Repos\spikedão\Windows\SDL2TTF\external\freetype\include;C:\Repos\SDL_ttf\external\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Repos/spikedão/Windows/SDL2/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BUILD_SDL;SDL_BUILD_MAJOR_VERSION=2;SDL_BUILD_MINOR_VERSION=25;SDL_BUILD_MICRO_VERSION=0;CMAKE_INTDIR="Release";DLL_EXPORT</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BUILD_SDL;SDL_BUILD_MAJOR_VERSION=2;SDL_BUILD_MINOR_VERSION=25;SDL_BUILD_MICRO_VERSION=0;CMAKE_INTDIR=\"Release\";DLL_EXPORT</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Repos\SDL_ttf;C:\Repos\spikedão\Windows\SDL2TTF\external\freetype\include;C:\Repos\SDL_ttf\external\freetype\include;C:\Repos\spikedão\Windows\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Repos\SDL_ttf;C:\Repos\spikedão\Windows\SDL2TTF\external\freetype\include;C:\Repos\SDL_ttf\external\freetype\include;C:\Repos\spikedão\Windows\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>external\freetype\Release\freetype.lib;C:\Repos\spikedão\Windows\SDL2\lib64\SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Repos/spikedão/Windows/SDL2TTF/Release/SDL2_ttf.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Repos/spikedão/Windows/SDL2TTF/Release/SDL2_ttf.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Repos\SDL_ttf;C:\Repos\spikedão\Windows\SDL2TTF\external\freetype\include;C:\Repos\SDL_ttf\external\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Repos/spikedão/Windows/SDL2/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BUILD_SDL;SDL_BUILD_MAJOR_VERSION=2;SDL_BUILD_MINOR_VERSION=25;SDL_BUILD_MICRO_VERSION=0;CMAKE_INTDIR="MinSizeRel";DLL_EXPORT</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BUILD_SDL;SDL_BUILD_MAJOR_VERSION=2;SDL_BUILD_MINOR_VERSION=25;SDL_BUILD_MICRO_VERSION=0;CMAKE_INTDIR=\"MinSizeRel\";DLL_EXPORT</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Repos\SDL_ttf;C:\Repos\spikedão\Windows\SDL2TTF\external\freetype\include;C:\Repos\SDL_ttf\external\freetype\include;C:\Repos\spikedão\Windows\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Repos\SDL_ttf;C:\Repos\spikedão\Windows\SDL2TTF\external\freetype\include;C:\Repos\SDL_ttf\external\freetype\include;C:\Repos\spikedão\Windows\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>external\freetype\MinSizeRel\freetype.lib;C:\Repos\spikedão\Windows\SDL2\lib64\SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Repos/spikedão/Windows/SDL2TTF/MinSizeRel/SDL2_ttf.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Repos/spikedão/Windows/SDL2TTF/MinSizeRel/SDL2_ttf.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Repos\SDL_ttf;C:\Repos\spikedão\Windows\SDL2TTF\external\freetype\include;C:\Repos\SDL_ttf\external\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Repos/spikedão/Windows/SDL2/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BUILD_SDL;SDL_BUILD_MAJOR_VERSION=2;SDL_BUILD_MINOR_VERSION=25;SDL_BUILD_MICRO_VERSION=0;CMAKE_INTDIR="RelWithDebInfo";DLL_EXPORT</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BUILD_SDL;SDL_BUILD_MAJOR_VERSION=2;SDL_BUILD_MINOR_VERSION=25;SDL_BUILD_MICRO_VERSION=0;CMAKE_INTDIR=\"RelWithDebInfo\";DLL_EXPORT</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Repos\SDL_ttf;C:\Repos\spikedão\Windows\SDL2TTF\external\freetype\include;C:\Repos\SDL_ttf\external\freetype\include;C:\Repos\spikedão\Windows\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Repos\SDL_ttf;C:\Repos\spikedão\Windows\SDL2TTF\external\freetype\include;C:\Repos\SDL_ttf\external\freetype\include;C:\Repos\spikedão\Windows\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>external\freetype\RelWithDebInfo\freetype.lib;C:\Repos\spikedão\Windows\SDL2\lib64\SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Repos/spikedão/Windows/SDL2TTF/RelWithDebInfo/SDL2_ttf.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Repos/spikedão/Windows/SDL2TTF/RelWithDebInfo/SDL2_ttf.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Repos\SDL_ttf\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Repos/SDL_ttf/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Repos\CMake\bin\cmake.exe -SC:/Repos/SDL_ttf -BC:/Repos/spikedão/Windows/SDL2TTF --check-stamp-file C:/Repos/spikedão/Windows/SDL2TTF/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Repos\CMake\share\cmake-3.29\Modules\BasicConfigVersion-AnyNewerVersion.cmake.in;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeCInformation.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeCommonLanguageInclude.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeDependentOption.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeGenericSystem.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeInitializeConfigs.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeLanguageInformation.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakePackageConfigHelpers.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeRCInformation.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInformation.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInitialize.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CheckSymbolExists.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Compiler\MSVC-C.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Compiler\MSVC.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\FindOpenGL.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\FindPackageHandleStandardArgs.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\FindPackageMessage.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\GNUInstallDirs.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\Windows-Initialize.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\Windows-MSVC-C.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\Windows-MSVC.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\Windows.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\WindowsPaths.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\WriteBasicConfigVersionFile.cmake;C:\Repos\SDL_ttf\SDL2_ttf.pc.in;C:\Repos\SDL_ttf\SDL2_ttfConfig.cmake.in;C:\Repos\SDL_ttf\cmake\CommonFindSDL2.cmake;C:\Repos\SDL_ttf\cmake\FindPrivateSDL2.cmake;C:\Repos\SDL_ttf\cmake\FindSDL2main.cmake;C:\Repos\SDL_ttf\cmake\PkgConfigHelper.cmake;C:\Repos\SDL_ttf\cmake\PrivateSdlFunctions.cmake;C:\Repos\spikedão\Windows\SDL2TTF\CMakeFiles\3.29.3\CMakeCCompiler.cmake;C:\Repos\spikedão\Windows\SDL2TTF\CMakeFiles\3.29.3\CMakeRCCompiler.cmake;C:\Repos\spikedão\Windows\SDL2TTF\CMakeFiles\3.29.3\CMakeSystem.cmake;C:\Repos\spikedão\Windows\SDL2TTF\SDL2_ttf.pc.intermediate;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Repos\spikedão\Windows\SDL2TTF\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Repos/SDL_ttf/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Repos\CMake\bin\cmake.exe -SC:/Repos/SDL_ttf -BC:/Repos/spikedão/Windows/SDL2TTF --check-stamp-file C:/Repos/spikedão/Windows/SDL2TTF/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Repos\CMake\share\cmake-3.29\Modules\BasicConfigVersion-AnyNewerVersion.cmake.in;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeCInformation.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeCommonLanguageInclude.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeDependentOption.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeGenericSystem.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeInitializeConfigs.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeLanguageInformation.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakePackageConfigHelpers.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeRCInformation.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInformation.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInitialize.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CheckSymbolExists.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Compiler\MSVC-C.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Compiler\MSVC.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\FindOpenGL.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\FindPackageHandleStandardArgs.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\FindPackageMessage.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\GNUInstallDirs.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\Windows-Initialize.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\Windows-MSVC-C.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\Windows-MSVC.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\Windows.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\WindowsPaths.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\WriteBasicConfigVersionFile.cmake;C:\Repos\SDL_ttf\SDL2_ttf.pc.in;C:\Repos\SDL_ttf\SDL2_ttfConfig.cmake.in;C:\Repos\SDL_ttf\cmake\CommonFindSDL2.cmake;C:\Repos\SDL_ttf\cmake\FindPrivateSDL2.cmake;C:\Repos\SDL_ttf\cmake\FindSDL2main.cmake;C:\Repos\SDL_ttf\cmake\PkgConfigHelper.cmake;C:\Repos\SDL_ttf\cmake\PrivateSdlFunctions.cmake;C:\Repos\spikedão\Windows\SDL2TTF\CMakeFiles\3.29.3\CMakeCCompiler.cmake;C:\Repos\spikedão\Windows\SDL2TTF\CMakeFiles\3.29.3\CMakeRCCompiler.cmake;C:\Repos\spikedão\Windows\SDL2TTF\CMakeFiles\3.29.3\CMakeSystem.cmake;C:\Repos\spikedão\Windows\SDL2TTF\SDL2_ttf.pc.intermediate;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Repos\spikedão\Windows\SDL2TTF\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Repos/SDL_ttf/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Repos\CMake\bin\cmake.exe -SC:/Repos/SDL_ttf -BC:/Repos/spikedão/Windows/SDL2TTF --check-stamp-file C:/Repos/spikedão/Windows/SDL2TTF/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Repos\CMake\share\cmake-3.29\Modules\BasicConfigVersion-AnyNewerVersion.cmake.in;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeCInformation.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeCommonLanguageInclude.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeDependentOption.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeGenericSystem.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeInitializeConfigs.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeLanguageInformation.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakePackageConfigHelpers.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeRCInformation.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInformation.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInitialize.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CheckSymbolExists.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Compiler\MSVC-C.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Compiler\MSVC.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\FindOpenGL.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\FindPackageHandleStandardArgs.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\FindPackageMessage.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\GNUInstallDirs.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\Windows-Initialize.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\Windows-MSVC-C.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\Windows-MSVC.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\Windows.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\WindowsPaths.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\WriteBasicConfigVersionFile.cmake;C:\Repos\SDL_ttf\SDL2_ttf.pc.in;C:\Repos\SDL_ttf\SDL2_ttfConfig.cmake.in;C:\Repos\SDL_ttf\cmake\CommonFindSDL2.cmake;C:\Repos\SDL_ttf\cmake\FindPrivateSDL2.cmake;C:\Repos\SDL_ttf\cmake\FindSDL2main.cmake;C:\Repos\SDL_ttf\cmake\PkgConfigHelper.cmake;C:\Repos\SDL_ttf\cmake\PrivateSdlFunctions.cmake;C:\Repos\spikedão\Windows\SDL2TTF\CMakeFiles\3.29.3\CMakeCCompiler.cmake;C:\Repos\spikedão\Windows\SDL2TTF\CMakeFiles\3.29.3\CMakeRCCompiler.cmake;C:\Repos\spikedão\Windows\SDL2TTF\CMakeFiles\3.29.3\CMakeSystem.cmake;C:\Repos\spikedão\Windows\SDL2TTF\SDL2_ttf.pc.intermediate;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Repos\spikedão\Windows\SDL2TTF\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Repos/SDL_ttf/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Repos\CMake\bin\cmake.exe -SC:/Repos/SDL_ttf -BC:/Repos/spikedão/Windows/SDL2TTF --check-stamp-file C:/Repos/spikedão/Windows/SDL2TTF/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Repos\CMake\share\cmake-3.29\Modules\BasicConfigVersion-AnyNewerVersion.cmake.in;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeCInformation.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeCommonLanguageInclude.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeDependentOption.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeGenericSystem.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeInitializeConfigs.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeLanguageInformation.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakePackageConfigHelpers.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeRCInformation.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInformation.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInitialize.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\CheckSymbolExists.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Compiler\MSVC-C.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Compiler\MSVC.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\FindOpenGL.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\FindPackageHandleStandardArgs.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\FindPackageMessage.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\GNUInstallDirs.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\Windows-Initialize.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\Windows-MSVC-C.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\Windows-MSVC.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\Windows.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\Platform\WindowsPaths.cmake;C:\Repos\CMake\share\cmake-3.29\Modules\WriteBasicConfigVersionFile.cmake;C:\Repos\SDL_ttf\SDL2_ttf.pc.in;C:\Repos\SDL_ttf\SDL2_ttfConfig.cmake.in;C:\Repos\SDL_ttf\cmake\CommonFindSDL2.cmake;C:\Repos\SDL_ttf\cmake\FindPrivateSDL2.cmake;C:\Repos\SDL_ttf\cmake\FindSDL2main.cmake;C:\Repos\SDL_ttf\cmake\PkgConfigHelper.cmake;C:\Repos\SDL_ttf\cmake\PrivateSdlFunctions.cmake;C:\Repos\spikedão\Windows\SDL2TTF\CMakeFiles\3.29.3\CMakeCCompiler.cmake;C:\Repos\spikedão\Windows\SDL2TTF\CMakeFiles\3.29.3\CMakeRCCompiler.cmake;C:\Repos\spikedão\Windows\SDL2TTF\CMakeFiles\3.29.3\CMakeSystem.cmake;C:\Repos\spikedão\Windows\SDL2TTF\SDL2_ttf.pc.intermediate;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Repos\spikedão\Windows\SDL2TTF\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\Repos\SDL_ttf\SDL_ttf.c" />
+    <ClInclude Include="C:\Repos\SDL_ttf\SDL_ttf.h" />
+    <ResourceCompile Include="C:\Repos\SDL_ttf\version.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Repos\spikedão\Windows\SDL2TTF\ZERO_CHECK.vcxproj">
+      <Project>{285CA4CC-7711-3D76-A543-9571146A17F4}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Repos\spikedão\Windows\SDL2TTF\external\freetype\freetype.vcxproj">
+      <Project>{98516C11-EB0C-350C-82AB-BCF05AC50D82}</Project>
+      <Name>freetype</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
