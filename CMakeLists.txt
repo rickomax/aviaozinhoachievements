@@ -174,6 +174,14 @@ FetchContent_Declare(libdatachannel
     GIT_TAG "v0.24.1"
     GIT_SHALLOW TRUE
 )
+FetchContent_Declare(zlib
+    URL "https://github.com/madler/zlib/releases/download/v1.3.1/zlib131.zip"
+    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+)
+FetchContent_Declare(curl
+    URL "https://github.com/curl/curl/releases/download/curl-8_9_1/curl-8.9.1.tar.gz"
+    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+)
 
 FetchContent_MakeAvailable(SDL2)
 set(SDL2_DIR "${sdl2_SOURCE_DIR}/cmake")
@@ -185,7 +193,21 @@ set(NO_MEDIA ON)
 set(SDL2TTF_SAMPLES OFF)
 set(SDL2TTF_INSTALL OFF)
 set(SDL2TTF_VENDORED ON)
-FetchContent_MakeAvailable(libdatachannel SDL2_ttf)
+set(ZLIB_BUILD_EXAMPLES OFF)
+set(BUILD_CURL_EXE OFF)
+set(BUILD_TESTING OFF)
+set(BUILD_LIBCURL_DOCS OFF)
+set(BUILD_MISC_DOCS OFF)
+set(ENABLE_CURL_MANUAL OFF)
+set(CURL_USE_SCHANNEL ON)
+set(CURL_USE_LIBPSL OFF)
+set(CURL_USE_LIBSSH2 OFF)
+set(CURL_ZLIB OFF)
+set(CURL_BROTLI OFF)
+set(CURL_ZSTD OFF)
+set(USE_NGHTTP2 OFF)
+set(USE_LIBIDN2 OFF)
+FetchContent_MakeAvailable(libdatachannel SDL2_ttf zlib curl)
 
 set(CODECS_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/codecs/include" CACHE PATH "Path to codec headers")
 set(CODECS_X64_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/codecs/x64" CACHE PATH "Path to x64 codec libs/dlls")
@@ -193,20 +215,12 @@ set(CODECS_X86_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/codecs/x86" CACHE PA
 
 set(MISC_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/misc/include" CACHE PATH "Path to misc headers")
 
-set(ZLIB_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/zlib/include" CACHE PATH "Path to zlib headers")
-set(ZLIB_X64_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/zlib/x64" CACHE PATH "Path to x64 zlib libs/dlls")
-set(ZLIB_X86_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/zlib/x86" CACHE PATH "Path to x86 zlib libs/dlls")
-
-set(CURL_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/curl/include" CACHE PATH "Path to curl headers")
-set(CURL_X64_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/curl/lib/x64" CACHE PATH "Path to x64 curl libs/dlls")
-set(CURL_X86_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/curl/lib/x86" CACHE PATH "Path to x86 curl libs/dlls")
-
 target_include_directories(quakespasm PRIVATE
     Quake
     "${CODECS_INCLUDE_DIR}"
     "${MISC_INCLUDE_DIR}"
-    "${ZLIB_INCLUDE_DIR}"
-    "${CURL_INCLUDE_DIR}"
+    "${zlib_SOURCE_DIR}"
+    "${zlib_BINARY_DIR}"
 )
 
 target_compile_definitions(quakespasm PRIVATE
@@ -347,14 +361,10 @@ if(MSVC)
     if(QS_64BIT)
         target_link_directories(quakespasm PRIVATE
             "${CODECS_X64_LIB_DIR}"
-            "${ZLIB_X64_LIB_DIR}"
-            "${CURL_X64_LIB_DIR}"
         )
     else()
         target_link_directories(quakespasm PRIVATE
             "${CODECS_X86_LIB_DIR}"
-            "${ZLIB_X86_LIB_DIR}"
-            "${CURL_X86_LIB_DIR}"
         )
     endif()
 
@@ -370,8 +380,8 @@ if(MSVC)
         ws2_32.lib
         opengl32.lib
         winmm.lib
-        zlib1.lib
-        libcurl.lib
+        zlibstatic
+        CURL::libcurl
         datachannel
         SDL2::SDL2
         SDL2::SDL2main
@@ -384,8 +394,7 @@ if(QS_COPY_RUNTIME_DLLS)
         add_custom_command(TARGET quakespasm POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_directory "${CODECS_X64_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
-            COMMAND ${CMAKE_COMMAND} -E copy_directory "${CURL_X64_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
-            COMMAND ${CMAKE_COMMAND} -E copy_directory "${ZLIB_X64_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:CURL::libcurl>" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:SDL2::SDL2>" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:SDL2_ttf>" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:datachannel>" "$<TARGET_FILE_DIR:quakespasm>"
@@ -395,8 +404,7 @@ if(QS_COPY_RUNTIME_DLLS)
         add_custom_command(TARGET quakespasm POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_directory "${CODECS_X86_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
-            COMMAND ${CMAKE_COMMAND} -E copy_directory "${CURL_X86_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
-            COMMAND ${CMAKE_COMMAND} -E copy_directory "${ZLIB_X86_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:CURL::libcurl>" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:SDL2::SDL2>" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:SDL2_ttf>" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:datachannel>" "$<TARGET_FILE_DIR:quakespasm>"
