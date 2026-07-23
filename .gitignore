@@ -9,3 +9,11 @@ Windows/VisualStudio/UpgradeLog.htm
 
 # macOS
 .DS_Store
+
+# Build outputs
+/Build/
+/out/
+/build*/
+.vs/
+CMakeCache.txt
+CMakeFiles/
