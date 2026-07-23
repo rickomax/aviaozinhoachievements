@@ -1,0 +1,10 @@
+^C:\REPOS\AVIAOZINHOACHIEVEMENTS\CMAKELISTS.TXT
+setlocal
+C:\Users\ricko\OneDrive\Documentos\cmake\bin\cmake.exe -SC:/Repos/AviaozinhoAchievements -BC:/Repos/AviaozinhoAchievements/binold --check-stamp-file C:/Repos/AviaozinhoAchievements/binold/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
