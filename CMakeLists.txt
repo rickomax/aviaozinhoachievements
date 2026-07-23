@@ -158,18 +158,34 @@ if(NOT DEFINED OPENSSL_ROOT_DIR)
 endif()
 
 set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
+
+include(FetchContent)
+
+FetchContent_Declare(SDL2
+    URL "https://github.com/libsdl-org/SDL/releases/download/release-2.26.3/SDL2-devel-2.26.3-VC.zip"
+    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+)
+FetchContent_Declare(SDL2_ttf
+    URL "https://github.com/libsdl-org/SDL_ttf/releases/download/release-2.24.0/SDL2_ttf-2.24.0.tar.gz"
+    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+)
+FetchContent_Declare(libdatachannel
+    GIT_REPOSITORY "https://github.com/paullouisageneau/libdatachannel.git"
+    GIT_TAG "v0.24.1"
+    GIT_SHALLOW TRUE
+)
+
+FetchContent_MakeAvailable(SDL2)
+set(SDL2_DIR "${sdl2_SOURCE_DIR}/cmake")
+find_package(SDL2 REQUIRED CONFIG)
+
 set(NO_EXAMPLES ON)
 set(NO_TESTS ON)
 set(NO_MEDIA ON)
-add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/Windows/libdatachannel" EXCLUDE_FROM_ALL)
-
-set(SDL2_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/SDL2/include" CACHE PATH "Path to SDL2 headers")
-set(SDL2_X64_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/SDL2/lib64" CACHE PATH "Path to x64 SDL2 libs/dlls")
-set(SDL2_X86_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/SDL2/lib" CACHE PATH "Path to x86 SDL2 libs/dlls")
-
-set(SDL2_TTF_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/SDL2TTF/include" CACHE PATH "Path to SDL2_ttf headers")
-set(SDL2_TTF_X64_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/SDL2TTF/Release" CACHE PATH "Path to x64 SDL2_ttf libs/dlls")
-set(SDL2_TTF_X86_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/SDL2TTF/lib" CACHE PATH "Path to x86 SDL2_ttf libs/dlls")
+set(SDL2TTF_SAMPLES OFF)
+set(SDL2TTF_INSTALL OFF)
+set(SDL2TTF_VENDORED ON)
+FetchContent_MakeAvailable(libdatachannel SDL2_ttf)
 
 set(CODECS_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/codecs/include" CACHE PATH "Path to codec headers")
 set(CODECS_X64_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/codecs/x64" CACHE PATH "Path to x64 codec libs/dlls")
@@ -187,8 +203,6 @@ set(CURL_X86_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/curl/lib/x86" CACHE PA
 
 target_include_directories(quakespasm PRIVATE
     Quake
-    "${SDL2_INCLUDE_DIR}"
-    "${SDL2_TTF_INCLUDE_DIR}"
     "${CODECS_INCLUDE_DIR}"
     "${MISC_INCLUDE_DIR}"
     "${ZLIB_INCLUDE_DIR}"
@@ -335,16 +349,12 @@ if(MSVC)
             "${CODECS_X64_LIB_DIR}"
             "${ZLIB_X64_LIB_DIR}"
             "${CURL_X64_LIB_DIR}"
-            "${SDL2_X64_LIB_DIR}"
-            "${SDL2_TTF_X64_LIB_DIR}"
         )
     else()
         target_link_directories(quakespasm PRIVATE
             "${CODECS_X86_LIB_DIR}"
             "${ZLIB_X86_LIB_DIR}"
             "${CURL_X86_LIB_DIR}"
-            "${SDL2_X86_LIB_DIR}"
-            "${SDL2_TTF_X86_LIB_DIR}"
         )
     endif()
 
@@ -363,9 +373,9 @@ if(MSVC)
         zlib1.lib
         libcurl.lib
         datachannel
-        SDL2.lib
-        SDL2main.lib
-        SDL2_ttf.lib
+        SDL2::SDL2
+        SDL2::SDL2main
+        SDL2_ttf
     )
 endif()
 
@@ -376,8 +386,8 @@ if(QS_COPY_RUNTIME_DLLS)
             COMMAND ${CMAKE_COMMAND} -E copy_directory "${CODECS_X64_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_directory "${CURL_X64_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_directory "${ZLIB_X64_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
-            COMMAND ${CMAKE_COMMAND} -E copy_directory "${SDL2_X64_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
-            COMMAND ${CMAKE_COMMAND} -E copy_directory "${SDL2_TTF_X64_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:SDL2::SDL2>" "$<TARGET_FILE_DIR:quakespasm>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:SDL2_ttf>" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:datachannel>" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND_EXPAND_LISTS
         )
@@ -387,8 +397,8 @@ if(QS_COPY_RUNTIME_DLLS)
             COMMAND ${CMAKE_COMMAND} -E copy_directory "${CODECS_X86_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_directory "${CURL_X86_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_directory "${ZLIB_X86_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
-            COMMAND ${CMAKE_COMMAND} -E copy_directory "${SDL2_X86_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
-            COMMAND ${CMAKE_COMMAND} -E copy_directory "${SDL2_TTF_X86_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:SDL2::SDL2>" "$<TARGET_FILE_DIR:quakespasm>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:SDL2_ttf>" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:datachannel>" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND_EXPAND_LISTS
         )
