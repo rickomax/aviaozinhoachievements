@@ -682,7 +682,7 @@ void Draw_Character_Rotation(int x, int y, Uint32 num, int rotation) // woods #m
 }
 /*
 ================
-Draw_String_Right -- avião - draws string right aligned
+Draw_String_Right -- aviï¿½o - draws string right aligned
 ================
 */
 void Draw_String_Right(int x, int y, const char* str)
@@ -1297,6 +1297,26 @@ void GL_SetCanvas(canvastype newcanvas)
 		glViewport(vp_x, vp_y, vp_w, vp_h);
 		break;
 	}
+	case CANVAS_SA_ENDING:
+	{
+		const float base_aspect = 320.0f / 240.0f;
+		float cur_aspect = (float)glwidth / (float)glheight;
+
+		float s_w = (float)glwidth / 320.0f;
+		float s_h = (float)glheight / 240.0f;
+
+		float s = (cur_aspect > base_aspect) ? s_h : s_w;
+
+		int vp_w = (int)(320.0f * s + 0.5f);
+		int vp_h = (int)(240.0f * s + 0.5f);
+
+		int vp_x = glx + (glwidth - vp_w) / 2;
+		int vp_y = gly + (glheight - vp_h);
+
+		glOrtho(0, 320, 240, 12, -99999, 99999);
+		glViewport(vp_x, vp_y, vp_w, vp_h);
+		break;
+	}
 	case CANVAS_DEFAULT:
 		glOrtho(0, glwidth, glheight, 0, -99999, 99999);
 		glViewport(glx, gly, glwidth, glheight);
@@ -1475,7 +1495,7 @@ void GL_SetCanvas(canvastype newcanvas)
 		glOrtho(0, 320, 200, 0, -99999, 99999);
 		glViewport(glx + glwidth - 200 * s, (gly + glheight - 212 * s), 320 * s, 200 * s);
 		break;
-	case CANVAS_SCOREBOARD_SA: // avião
+	case CANVAS_SCOREBOARD_SA: // aviï¿½o
 		s = (float)glwidth / vid.conwidth; 
 		glOrtho(0, glwidth / s, glheight / s, 0, -99999, 99999);
 		glViewport(glx, gly, glwidth, glheight);

@@ -42,7 +42,7 @@ void SCR_EndLoadingPlaque (void);
 
 int SCR_ModalMessage (const char *text, float timeout); //johnfitz -- added timeout
 
-//avião: custom autoload
+//aviï¿½o: custom autoload
 int SCR_AutoloadMessage();
 
 extern	float		scr_con_current;
@@ -99,10 +99,11 @@ typedef enum {
 	CANVAS_TOPRIGHT4, // woods #hud_diff
 	CANVAS_CSQC,
 	CANVAS_MENUQC,
-	CANVAS_SA,  // avião
-	CANVAS_SA_SMALL, //avião
-	CANVAS_SA_BOTTOM, //avião
-	CANVAS_SCOREBOARD_SA, // avião
+	CANVAS_SA,  // aviï¿½o
+	CANVAS_SA_SMALL, //aviï¿½o
+	CANVAS_SA_BOTTOM, //aviï¿½o
+	CANVAS_SCOREBOARD_SA, // aviï¿½o
+	CANVAS_SA_ENDING, // aviï¿½o
 	CANVAS_INVALID = -1
 } canvastype;
 extern	cvar_t		scr_menuscale;

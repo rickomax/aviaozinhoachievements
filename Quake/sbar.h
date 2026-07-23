@@ -42,6 +42,10 @@ void Sbar_IntermissionOverlay (void);
 
 void Sbar_FinaleOverlay (void);
 
+#ifdef BDDPRE4
+void Sbar_FinaleReset (void);
+#endif
+
 //csqc needs some of the helpers.
 extern int	fragsort[MAX_SCOREBOARD];
 extern int	scoreboardlines;

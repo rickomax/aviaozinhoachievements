@@ -150,6 +150,9 @@ void CL_FreeState(void)
 		Z_Free(timer);
 	}
 	cl.itemtimers = NULL;
+#ifdef BDDPRE4
+	Sbar_FinaleReset();
+#endif
 	CL_ClearTrailStates();
 	PR_ClearProgs(&cl.qcvm);
 	free(cl.static_entities);

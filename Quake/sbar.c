@@ -64,7 +64,7 @@ qpic_t* rsb_items[2];
 qpic_t* rsb_ammo[3];
 qpic_t* rsb_teambord;		// PGM 01/19/97 - team color border
 
-// avião
+// aviï¿½o
 qpic_t* av_weapons[7];
 
 //MED 01/04/97 added two more weapons + 3 alternates for grenade launcher
@@ -301,7 +301,7 @@ void Sbar_LoadPics(void)
 		rsb_ammo[2] = Sbar_CheckPicFromWad("r_ammoplasma");
 	}
 
-	// avião
+	// aviï¿½o
 	av_weapons[0] = Draw_PicFromWad("inv_lava");
 	av_weapons[1] = Draw_PicFromWad("inv_superlava");
 	av_weapons[2] = Draw_PicFromWad("inv_gren");
@@ -963,7 +963,7 @@ void Sbar_DrawInventory(void)
 Sbar_DrawInventorySA
 ===============
 */
-// avião
+// aviï¿½o
 void SBar_DrawQuad(float x, float y, float w, float h, float r, float g, float b)
 {
 	y += 24;
@@ -1098,7 +1098,7 @@ void Sbar_DrawInventory_QW(void)
 	float	time;
 	int	flashon;
 	int extraguns = 2 * hipnotic;
-	// avião
+	// aviï¿½o
 	int clampedSbar = CLAMP(1, (int)scr_sbar.value, 4);
 	qpic_t* pic = NULL;
 
@@ -1442,7 +1442,7 @@ void Sbar_DrawFrags(void)
 
 	extern qboolean crxintermission; // woods #crxintermission
 
-	// avião
+	// aviï¿½o
 	int clampedSbar = CLAMP(1, (int)scr_sbar.value, 4);
 
 	if (clampedSbar > 1) // woods #sbarstyles
@@ -1589,7 +1589,7 @@ void Sbar_DrawRecord(void)
 	y = 0;
 	x = 0;
 
-	// avião
+	// aviï¿½o
 	int clampedSbar = CLAMP(1, (int)scr_sbar.value, 4);
 
 	if (scr_viewsize.value >= 130)
@@ -1815,7 +1815,7 @@ void Sbar_DrawFace_Team(void)
 	color = cl.scores[cl.viewentity - 1].pants.basic; // get color 0-13
 	color = Sbar_ColorForMap((color & 15) << 4); // translate to proper drawfill color
 
-	// avião
+	// aviï¿½o
 	int clampedSbar = CLAMP(1, (int)scr_sbar.value, 4);
 
 	if (clampedSbar == 3 && scr_viewsize.value <= 110)
@@ -1983,7 +1983,7 @@ static qpic_t* Sbar_FacePic()
 Sbar_Draw
 ===============
 */
-// avião
+// aviï¿½o
 void Sbar_SoloScoreboardSA(void)
 {
 	char str[256];
@@ -2067,7 +2067,7 @@ void Sbar_Draw(void)
 			observer = (strcmp(obs, "n") == 0) || (strcmp(star_obs, "n") == 0);
 	}
 
-	// avião
+	// aviï¿½o
 	int clampedSbar = CLAMP(1, (int)scr_sbar.value, 4); // woods
 
 	if (scr_con_current == vid.height)
@@ -3016,6 +3016,361 @@ void Sbar_IntermissionOverlay(void)
 Sbar_FinaleOverlay
 ==================
 */
+#ifdef BDDPRE4
+
+#define CREDITS_FIRST_MAP "start"
+#define CREDITS_CHANGELEVEL_DELAY 10.0
+
+char* intermissionText = NULL;
+double intermissionTime = 0.0;
+static double creditsScrollEndTime = 0.0;
+static qboolean creditsChangedLevel = false;
+
+void Sbar_FinaleReset(void)
+{
+	if (intermissionText)
+	{
+		free(intermissionText);
+		intermissionText = NULL;
+	}
+	intermissionTime = 0.0;
+	creditsScrollEndTime = 0.0;
+	creditsChangedLevel = false;
+}
+
+static void Sbar_DrawBlackFade(float alpha)
+{
+	if (alpha <= 0.0f)
+	{
+		return;
+	}
+
+	if (alpha > 1.0f)
+	{
+		alpha = 1.0f;
+	}
+
+	GL_SetCanvas(CANVAS_DEFAULT);
+
+	glEnable(GL_BLEND);
+	glDisable(GL_ALPHA_TEST);
+	glDisable(GL_TEXTURE_2D);
+	glColor4f(0.0f, 0.0f, 0.0f, alpha);
+
+	glBegin(GL_QUADS);
+
+	glVertex2f(0.0f, 0.0f);
+	glVertex2f((float)glwidth, 0.0f);
+	glVertex2f((float)glwidth, (float)glheight);
+	glVertex2f(0.0f, (float)glheight);
+
+	glEnd();
+
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_ALPHA_TEST);
+	glDisable(GL_BLEND);
+}
+
+void Sbar_FinaleOverlay(void)
+{
+	if (!intermissionText)
+	{
+		intermissionTime = cl.time;
+
+		char filename[MAX_OSPATH];
+		q_snprintf(filename, sizeof(filename), "%s/bddpre4/credits.txt", com_basedir);
+
+		FILE* file = fopen(filename, "rb");
+		if (!file)
+		{
+			return;
+		}
+
+		fseek(file, 0, SEEK_END);
+		long fileSize = ftell(file);
+		fseek(file, 0, SEEK_SET);
+
+		if (fileSize <= 0)
+		{
+			fclose(file);
+			return;
+		}
+
+		intermissionText = malloc((size_t)fileSize + 1);
+		if (!intermissionText)
+		{
+			fclose(file);
+			return;
+		}
+
+		size_t bytesRead = fread(intermissionText, 1, (size_t)fileSize, file);
+		fclose(file);
+
+		intermissionText[bytesRead] = '\0';
+	}
+
+	const double animSpeed = 5.0;
+	const double animationDuration = 10.0;
+	const double fadeDuration = 2.0;
+
+	const double animationFadeInStart = 0.0;
+	const double animationFadeInEnd =
+		animationFadeInStart + fadeDuration;
+
+	const double animationFadeOutStart =
+		animationDuration;
+
+	const double animationFadeOutEnd =
+		animationFadeOutStart + fadeDuration;
+
+	const double marqueeFadeInStart =
+		animationFadeOutEnd;
+
+	const double marqueeFadeInEnd =
+		marqueeFadeInStart + fadeDuration;
+
+	double elapsed = cl.time - intermissionTime;
+
+	GL_SetCanvas(CANVAS_DEFAULT);
+	SBar_DrawQuad(
+		0.0f,
+		-32.0f,
+		glwidth,
+		glheight + 32.0f,
+		0,
+		0,
+		0);
+
+	if (elapsed < animationFadeOutEnd)
+	{
+		GL_SetCanvas(CANVAS_SA_ENDING);
+
+		qpic_t* pic = NULL;
+		int frame = (int)(cl.time * animSpeed) % 4;
+
+		switch (frame)
+		{
+		case 0:
+		{
+			pic = Draw_CachePic("gfx/ending1.png");
+			break;
+		}
+		case 1:
+		{
+			pic = Draw_CachePic("gfx/ending2.png");
+			break;
+		}
+		case 2:
+		{
+			pic = Draw_CachePic("gfx/ending3.png");
+			break;
+		}
+		case 3:
+		{
+			pic = Draw_CachePic("gfx/ending4.png");
+			break;
+		}
+		}
+
+		Draw_Pic(0, 0, pic);
+
+		float fadeAlpha = 0.0f;
+
+		if (elapsed < animationFadeInEnd)
+		{
+			fadeAlpha =
+				1.0f -
+				(float)(
+					(elapsed - animationFadeInStart) /
+					fadeDuration);
+		}
+		else if (elapsed >= animationFadeOutStart)
+		{
+			fadeAlpha =
+				(float)(
+					(elapsed - animationFadeOutStart) /
+					fadeDuration);
+		}
+
+		Sbar_DrawBlackFade(fadeAlpha);
+	}
+	else
+	{
+		const float scrollSpeed = 10.0f;
+		const float characterWidth = 8.0f;
+		const float lineHeight = 8.0f;
+		const float canvasWidth = 320.0f;
+		const float canvasHeight = 200.0f;
+
+		GL_SetCanvas(CANVAS_SA_ENDING);
+
+		plcolour_t color = CL_PLColours_Parse("0xffffff");
+
+		double marqueeElapsed = elapsed - marqueeFadeInStart;
+
+		float y =
+			canvasHeight -
+			(float)marqueeElapsed * scrollSpeed;
+
+		const char* lineStart = intermissionText;
+		qboolean finished = false;
+
+		while (!finished)
+		{
+			const char* lineEnd = strchr(lineStart, '\n');
+			size_t lineBytes;
+
+			if (lineEnd)
+			{
+				lineBytes = (size_t)(lineEnd - lineStart);
+			}
+			else
+			{
+				lineBytes = strlen(lineStart);
+				finished = true;
+			}
+
+			if (
+				lineBytes > 0 &&
+				lineStart[lineBytes - 1] == '\r')
+			{
+				lineBytes--;
+			}
+
+			int characterCount = 0;
+			size_t offset = 0;
+
+			while (offset < lineBytes)
+			{
+				unsigned char firstByte =
+					(unsigned char)lineStart[offset];
+
+				int sequenceLength = 1;
+
+				if ((firstByte & 0x80) == 0x00)
+				{
+					sequenceLength = 1;
+				}
+				else if ((firstByte & 0xE0) == 0xC0)
+				{
+					sequenceLength = 2;
+				}
+				else if ((firstByte & 0xF0) == 0xE0)
+				{
+					sequenceLength = 3;
+				}
+				else if ((firstByte & 0xF8) == 0xF0)
+				{
+					sequenceLength = 4;
+				}
+
+				if (offset + sequenceLength > lineBytes)
+				{
+					sequenceLength = 1;
+				}
+
+				offset += sequenceLength;
+				characterCount++;
+			}
+
+			float x =
+				(canvasWidth -
+					characterCount * characterWidth) *
+				0.5f;
+
+			if (y >= -lineHeight && y < canvasHeight)
+			{
+				offset = 0;
+
+				while (offset < lineBytes)
+				{
+					Uint32 codepoint =
+						utf8_decode_nth(
+							lineStart + offset,
+							0,
+							lineBytes - offset);
+
+					unsigned char firstByte =
+						(unsigned char)lineStart[offset];
+
+					int sequenceLength = 1;
+
+					if ((firstByte & 0x80) == 0x00)
+					{
+						sequenceLength = 1;
+					}
+					else if ((firstByte & 0xE0) == 0xC0)
+					{
+						sequenceLength = 2;
+					}
+					else if ((firstByte & 0xF0) == 0xE0)
+					{
+						sequenceLength = 3;
+					}
+					else if ((firstByte & 0xF8) == 0xF0)
+					{
+						sequenceLength = 4;
+					}
+
+					if (
+						offset + sequenceLength >
+						lineBytes)
+					{
+						sequenceLength = 1;
+					}
+
+					Draw_CharacterRGBA(
+						(int)x,
+						(int)y,
+						codepoint,
+						color,
+						1.0f);
+
+					x += characterWidth;
+					offset += sequenceLength;
+				}
+			}
+
+			y += lineHeight;
+
+			if (lineEnd)
+			{
+				lineStart = lineEnd + 1;
+			}
+		}
+
+		if (y < 0.0f)
+		{
+			if (creditsScrollEndTime == 0.0)
+			{
+				creditsScrollEndTime = cl.time;
+			}
+			else if (!creditsChangedLevel &&
+				cl.time - creditsScrollEndTime >= CREDITS_CHANGELEVEL_DELAY)
+			{
+				creditsChangedLevel = true;
+				Cbuf_AddText("changelevel " CREDITS_FIRST_MAP "\n");
+			}
+		}
+
+		float fadeAlpha = 0.0f;
+
+		if (elapsed < marqueeFadeInEnd)
+		{
+			fadeAlpha =
+				1.0f -
+				(float)(
+					(elapsed - marqueeFadeInStart) /
+					fadeDuration);
+		}
+
+		Sbar_DrawBlackFade(fadeAlpha);
+	}
+}
+
+#else
+
 void Sbar_FinaleOverlay(void)
 {
 	qpic_t* pic;
@@ -3025,3 +3380,5 @@ void Sbar_FinaleOverlay(void)
 	pic = Draw_CachePic("gfx/finale.lmp");
 	Draw_Pic((320 - pic->width) / 2, 16, pic); //johnfitz -- stretched menus
 }
+
+#endif

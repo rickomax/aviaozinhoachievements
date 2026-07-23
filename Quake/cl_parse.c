@@ -2978,7 +2978,7 @@ if (!strcmp(printtext, "Client ping times:\n") && (cl.expectingpingtimes > realt
 			char hud[3];
 			char lfps[20];
 			char ecolor[10];
-			// avião
+			// aviï¿½o
 			int clampedSbar = CLAMP(1, (int)scr_sbar.value, 4);
 			
 			if (!strcmp(r_particledesc.string, ""))
@@ -4078,6 +4078,10 @@ void CL_ParseServerMessage (void)
 			break;
 
 		case svc_finale:
+#ifdef BDDPRE4
+			if (cl.intermission != 2)
+				Sbar_FinaleReset ();
+#endif
 			cl.intermission = 2;
 			cl.completed_time = cl.time;
 			vid.recalc_refdef = true;	// go to full screen

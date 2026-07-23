@@ -483,6 +483,11 @@ void CL_BaseMove (usercmd_t *cmd, qboolean isfinal)
 	if (cls.signon != SIGNONS)
 		return;
 
+#ifdef BDDPRE4
+	if (cl.intermission == 2)
+		return;
+#endif
+
 	if (in_strafe.state & 1)
 	{
 		cmd->sidemove += cl_sidespeed.value * CL_KeyState (&in_right, isfinal);
@@ -555,6 +560,17 @@ void CL_FinishMove(usercmd_t *cmd, qboolean isfinal)
 	cmd->upmove		+= cl.accummoves[2];
 	if (isfinal)
 		cl.accummoves[0]=cl.accummoves[1]=cl.accummoves[2]=0;
+
+#ifdef BDDPRE4
+	if (cl.intermission == 2)
+	{
+		cmd->buttons = 0;
+		cmd->impulse = 0;
+		cmd->forwardmove = 0;
+		cmd->sidemove = 0;
+		cmd->upmove = 0;
+	}
+#endif
 
 	cmd->sequence	= cl.movemessages;
 	cmd->servertime	= cl.time;
