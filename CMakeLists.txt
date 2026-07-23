@@ -146,11 +146,22 @@ set_target_properties(quakespasm PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL "${QS_RUNTIME_OUTPUT_DIRECTORY}"
 )
 
-set(LIBDATACHANNEL_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/libdatachannel/include" CACHE PATH "Path to libdatachannel headers")
-set(LIBDATACHANNEL_X64_DEBUG_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/libdatachannel/debug" CACHE PATH "Path to x64 libdatachannel debug libs/dlls")
-set(LIBDATACHANNEL_X64_RELEASE_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/libdatachannel/release" CACHE PATH "Path to x64 libdatachannel release libs/dlls")
-set(LIBDATACHANNEL_X86_DEBUG_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/libdatachannel/debug_x86" CACHE PATH "Path to x86 libdatachannel debug libs/dlls")
-set(LIBDATACHANNEL_X86_RELEASE_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/libdatachannel/release_x86" CACHE PATH "Path to x86 libdatachannel release libs/dlls")
+if(NOT DEFINED OPENSSL_ROOT_DIR AND DEFINED ENV{OPENSSL_ROOT_DIR})
+    set(OPENSSL_ROOT_DIR "$ENV{OPENSSL_ROOT_DIR}")
+endif()
+if(NOT DEFINED OPENSSL_ROOT_DIR)
+    if(QS_64BIT AND EXISTS "C:/Program Files/OpenSSL-Win64")
+        set(OPENSSL_ROOT_DIR "C:/Program Files/OpenSSL-Win64")
+    elseif(NOT QS_64BIT AND EXISTS "C:/Program Files (x86)/OpenSSL-Win32")
+        set(OPENSSL_ROOT_DIR "C:/Program Files (x86)/OpenSSL-Win32")
+    endif()
+endif()
+
+set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
+set(NO_EXAMPLES ON)
+set(NO_TESTS ON)
+set(NO_MEDIA ON)
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/Windows/libdatachannel" EXCLUDE_FROM_ALL)
 
 set(SDL2_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/SDL2/include" CACHE PATH "Path to SDL2 headers")
 set(SDL2_X64_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Windows/SDL2/lib64" CACHE PATH "Path to x64 SDL2 libs/dlls")
@@ -178,7 +189,6 @@ target_include_directories(quakespasm PRIVATE
     Quake
     "${SDL2_INCLUDE_DIR}"
     "${SDL2_TTF_INCLUDE_DIR}"
-    "${LIBDATACHANNEL_INCLUDE_DIR}"
     "${CODECS_INCLUDE_DIR}"
     "${MISC_INCLUDE_DIR}"
     "${ZLIB_INCLUDE_DIR}"
@@ -327,8 +337,6 @@ if(MSVC)
             "${CURL_X64_LIB_DIR}"
             "${SDL2_X64_LIB_DIR}"
             "${SDL2_TTF_X64_LIB_DIR}"
-            "$<$<CONFIG:Debug>:${LIBDATACHANNEL_X64_DEBUG_LIB_DIR}>"
-            "$<$<NOT:$<CONFIG:Debug>>:${LIBDATACHANNEL_X64_RELEASE_LIB_DIR}>"
         )
     else()
         target_link_directories(quakespasm PRIVATE
@@ -337,8 +345,6 @@ if(MSVC)
             "${CURL_X86_LIB_DIR}"
             "${SDL2_X86_LIB_DIR}"
             "${SDL2_TTF_X86_LIB_DIR}"
-            "$<$<CONFIG:Debug>:${LIBDATACHANNEL_X86_DEBUG_LIB_DIR}>"
-            "$<$<NOT:$<CONFIG:Debug>>:${LIBDATACHANNEL_X86_RELEASE_LIB_DIR}>"
         )
     endif()
 
@@ -356,7 +362,7 @@ if(MSVC)
         winmm.lib
         zlib1.lib
         libcurl.lib
-        datachannel.lib
+        datachannel
         SDL2.lib
         SDL2main.lib
         SDL2_ttf.lib
@@ -372,7 +378,7 @@ if(QS_COPY_RUNTIME_DLLS)
             COMMAND ${CMAKE_COMMAND} -E copy_directory "${ZLIB_X64_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_directory "${SDL2_X64_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_directory "${SDL2_TTF_X64_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
-            COMMAND ${CMAKE_COMMAND} -E copy_directory "$<$<CONFIG:Debug>:${LIBDATACHANNEL_X64_DEBUG_LIB_DIR}>$<$<NOT:$<CONFIG:Debug>>:${LIBDATACHANNEL_X64_RELEASE_LIB_DIR}>" "$<TARGET_FILE_DIR:quakespasm>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:datachannel>" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND_EXPAND_LISTS
         )
     else()
@@ -383,7 +389,7 @@ if(QS_COPY_RUNTIME_DLLS)
             COMMAND ${CMAKE_COMMAND} -E copy_directory "${ZLIB_X86_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_directory "${SDL2_X86_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND ${CMAKE_COMMAND} -E copy_directory "${SDL2_TTF_X86_LIB_DIR}" "$<TARGET_FILE_DIR:quakespasm>"
-            COMMAND ${CMAKE_COMMAND} -E copy_directory "$<$<CONFIG:Debug>:${LIBDATACHANNEL_X86_DEBUG_LIB_DIR}>$<$<NOT:$<CONFIG:Debug>>:${LIBDATACHANNEL_X86_RELEASE_LIB_DIR}>" "$<TARGET_FILE_DIR:quakespasm>"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:datachannel>" "$<TARGET_FILE_DIR:quakespasm>"
             COMMAND_EXPAND_LISTS
         )
     endif()
