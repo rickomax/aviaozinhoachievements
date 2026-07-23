@@ -4,7 +4,7 @@
 #include <Windows.h>
 
 UnicodeBlock unicode_blocks[] = {
-	// Línguas latinas
+	// LÃ­nguas latinas
 	{0x0000, 0x007F, 0, 0, 0, 0}, // Basic Latin
 	{0x0080, 0x00FF, 0, 0, 0, 0}, // Latin-1 Supplement
 	{0x0100, 0x017F, 0, 0, 0, 0}, // Latin Extended-A
@@ -24,7 +24,7 @@ UnicodeBlock unicode_blocks[] = {
 	{0xA640, 0xA69F, 0, 0, 0, 0}, // Cyrillic Extended-B
 	{0x1C80, 0x1C8F, 0, 0, 0, 0}, // Cyrillic Extended-C
 
-	// Chinês (Simplificado e Tradicional) + Japonês
+	// ChinÃªs (Simplificado e Tradicional) + JaponÃªs
 	{0x3000, 0x303F, 0, 0, 0, 0}, // CJK Symbols and Punctuation
 	{0x3400, 0x4DBF, 0, 0, 0, 0}, // CJK Unified Ideographs Extension A
 	{0x4E00, 0x9FFF, 0, 0, 0, 0}, // CJK Unified Ideographs
@@ -35,7 +35,7 @@ UnicodeBlock unicode_blocks[] = {
 	//{0x2CEB0, 0x2EBEF, 0, 0, 0, 0}, // CJK Unified Ideographs Extension F
 	//{0x30000, 0x3134F, 0, 0, 0, 0}, // CJK Unified Ideographs Extension G
 
-	// Japonês
+	// JaponÃªs
 	{0x3040, 0x309F, 0, 0, 0, 0}, // Hiragana
 	{0x30A0, 0x30FF, 0, 0, 0, 0}, // Katakana
 	{0x31F0, 0x31FF, 0, 0, 0, 0}, // Katakana Phonetic Extensions
@@ -307,8 +307,11 @@ int generate_font_pngs(void)
 						if (consoleMalloced && consoleData) free(consoleData);
 						return 0;
 					}
-
+#ifdef BDDPRE4
+					const char* font_filename = va("%s\\bddpre4\\fonts\\font%i.ttf",
+#else
 					const char* font_filename = va("%s\\id1\\fonts\\font%i.ttf",
+#endif
 						to_utf8(com_basedir),
 						font_index);
 					font = TTF_OpenFont(font_filename, FONT_SIZE);
