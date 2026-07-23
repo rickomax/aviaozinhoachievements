@@ -3019,7 +3019,7 @@ Sbar_FinaleOverlay
 #ifdef BDDPRE4
 
 #define CREDITS_FIRST_MAP "start"
-#define CREDITS_CHANGELEVEL_DELAY 10.0
+#define CREDITS_CHANGELEVEL_DELAY 1.0
 
 char* intermissionText = NULL;
 double intermissionTime = 0.0;
