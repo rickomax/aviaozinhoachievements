@@ -11,6 +11,7 @@
 #include <future>
 #include <stdexcept>
 #include <chrono>
+#include <algorithm>
 #include "q_stdinc.h"
 #include "arch_def.h"
 #include "net_sys.h"
@@ -163,10 +164,16 @@ static inline void _dbgPrint(const char* tag, const char* fmt, ...)
 #define dbgPrint (void)
 #endif
 
+#define GNS_MAX_QUEUED_OUTGOING 256
+
 static inline void enqueueOutgoing(uint64_t peerId, rtc::binary&& packet)
 {
 	std::lock_guard<std::mutex> lk(outgoingPacketsMutex);
-	outgoingPacketsByPeer[peerId].push_back(std::move(packet));
+	auto& queue = outgoingPacketsByPeer[peerId];
+	queue.push_back(std::move(packet));
+	while (queue.size() > GNS_MAX_QUEUED_OUTGOING) {
+		queue.pop_front();
+	}
 }
 
 static inline bool tryDequeueOutgoing(uint64_t peerId, rtc::binary& outPacket)
@@ -233,9 +240,38 @@ void removePeer(uint64_t peerId) {
 	}
 	{
 		std::lock_guard<std::mutex> incomingPacketsLock(incomingPacketsMutex);
-		incomingPackets.erase(peerId);
+		for (auto& kvp : incomingPackets) {
+			auto& queue = kvp.second;
+			queue.erase(std::remove_if(queue.begin(), queue.end(),
+				[peerId](const DataPacket& packet) { return packet.peerId == peerId; }),
+				queue.end());
+		}
 	}
 	clearOutgoing(peerId);
+}
+
+std::vector<uint64_t> pendingPeerRemovals;
+std::mutex pendingPeerRemovalsMutex;
+
+static inline void schedulePeerRemoval(uint64_t peerId)
+{
+	std::lock_guard<std::mutex> lk(pendingPeerRemovalsMutex);
+	pendingPeerRemovals.push_back(peerId);
+}
+
+static void processPendingPeerRemovals(void)
+{
+	std::vector<uint64_t> peers;
+	{
+		std::lock_guard<std::mutex> lk(pendingPeerRemovalsMutex);
+		if (pendingPeerRemovals.empty()) {
+			return;
+		}
+		peers.swap(pendingPeerRemovals);
+	}
+	for (uint64_t peerId : peers) {
+		removePeer(peerId);
+	}
 }
 
 void wireDataChannel(uint64_t peerId, const std::shared_ptr<rtc::DataChannel>& dataChannel)
@@ -360,6 +396,9 @@ std::shared_ptr<rtc::PeerConnection> createPeerConnection(uint64_t peerId)
 		case rtc::PeerConnection::State::Closed: s = "Closed"; break;
 		}
 		dbgPrint("PC", "onStateChange peer=%llu state=%s", (unsigned long long)peerId, s);
+		if (state == rtc::PeerConnection::State::Failed || state == rtc::PeerConnection::State::Closed) {
+			schedulePeerRemoval(peerId);
+		}
 		});
 
 	peerConnection->onGatheringStateChange([peerId](rtc::PeerConnection::GatheringState state) {
@@ -448,6 +487,9 @@ std::shared_ptr<rtc::PeerConnection> createPeerConnection(uint64_t peerId)
 		case rtc::PeerConnection::IceState::Closed: s = "Closed"; break;
 		}
 		dbgPrint("PC", "onIceStateChange peer=%llu ice=%s", (unsigned long long)peerId, s);
+		if (state == rtc::PeerConnection::IceState::Failed) {
+			schedulePeerRemoval(peerId);
+		}
 		});
 
 	{
@@ -817,6 +859,8 @@ extern "C" {
 			return -1;
 		}
 
+		processPendingPeerRemovals();
+
 		const struct qsockaddr* qaddr = (const struct qsockaddr*)to;
 		const uint64_t peerId = decodeSteamId(qaddr);
 		if (peerId == 0) {
@@ -889,6 +933,7 @@ extern "C" {
 		{
 			return -1;
 		}
+		processPendingPeerRemovals();
 		DataPacket dataPacket;
 		{
 			std::lock_guard<std::mutex> incomingPacketsLock(incomingPacketsMutex);

@@ -139,8 +139,17 @@ void CL_ClearTrailStates(void)
 void CL_FreeState(void)
 {
 	int i;
+	struct itemtimer_s *timer, *timernext;
 	for (i = 0; i < MAX_CL_STATS; i++)
 		free(cl.statss[i]);
+	for (timer = cl.itemtimers; timer; timer = timernext)
+	{
+		timernext = timer->next;
+		if (timer->timername)
+			Z_Free(timer->timername);
+		Z_Free(timer);
+	}
+	cl.itemtimers = NULL;
 	CL_ClearTrailStates();
 	PR_ClearProgs(&cl.qcvm);
 	free(cl.static_entities);
@@ -2608,6 +2617,20 @@ static void CL_ServerExtension_ItemTimer_f (void) // woods #obstimers (FTE)
 
 	// Find existing timer or create new one
 	struct itemtimer_s* timer;
+	struct itemtimer_s** link = &cl.itemtimers;
+	while (*link)
+	{
+		timer = *link;
+		if (timer->end != FLT_MAX && cl.time > timer->end + 1)
+		{
+			*link = timer->next;
+			if (timer->timername)
+				Z_Free(timer->timername);
+			Z_Free(timer);
+		}
+		else
+			link = &timer->next;
+	}
 	for (timer = cl.itemtimers; timer; timer = timer->next)
 	{
 		if (entnum)
